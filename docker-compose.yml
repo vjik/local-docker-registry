@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  ui:
+    image: joxit/docker-registry-ui:main
+    restart: always
+    depends_on:
+      - registry
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./ui/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+      - ./ui/cert:/etc/nginx/cert:ro
+    environment:
+      - SINGLE_REGISTRY=true
+      - REGISTRY_URL=https://registry.test
+      - REGISTRY_TITLE=Local Docker Registry
+      - DELETE_IMAGES=true
+      - SHOW_CONTENT_DIGEST=true
+
+  registry:
+    image: registry:2.8.2
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./registry/config.yml:/etc/docker/registry/config.yml:ro
+      - ./registry/data:/var/lib/registry
