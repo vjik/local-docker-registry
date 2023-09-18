@@ -7,14 +7,13 @@ services:
     depends_on:
       - registry
     ports:
-      - "80:80"
-      - "443:443"
+      - "4999:443"
     volumes:
       - ./ui/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
       - ./ui/cert:/etc/nginx/cert:ro
     environment:
       - SINGLE_REGISTRY=true
-      - REGISTRY_URL=https://registry.test
+      - REGISTRY_URL=https://registry.test:4999
       - REGISTRY_TITLE=Local Docker Registry
       - DELETE_IMAGES=true
       - SHOW_CONTENT_DIGEST=true

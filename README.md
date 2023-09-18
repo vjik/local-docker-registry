@@ -30,4 +30,4 @@ Commands:
 
 Registry available by address `registry.test:5000`.
 
-UI: `https://registry.test`.
+UI: `https://registry.test:4999`.
